@@ -35,29 +35,32 @@ public class PostController {
 	
 	@PostMapping("/")
 	public ResponseEntity<?> altaPost(@RequestBody PostTdo wrapper ){
-		log.info("id: "+wrapper.getUsuario_id().toString());
-		Usuario autor =usuarioService.getUsuario(wrapper.getUsuario_id());
-		Post post = wrapper.getPost();
-		post.setAutor(autor);
-		if (autor != null) {
-			if (postService.altaPost(post) != null) {
-				return new ResponseEntity<>("Post creado con exito.", HttpStatus.CREATED);
+		
+		Usuario autor =usuarioService.getUsuario(wrapper.getUsuario_id()); //obtengo el usuario de la db usando el id del postTdo
+		
+		Post post = wrapper.getPost(); // Guardo el objeto post que viene de afuera.
+		
+		post.setAutor(autor); // Al objeto autor le asigno su autor.
+		
+		if (autor != null) { // si el autor es distinto de nulo
+			if (postService.altaPost(post) != null) { // Guardo el post en l db.
+				return new ResponseEntity<>("Post creado con exito.", HttpStatus.CREATED);// Si no hay error se retorna msj de exito.
 			}
 		}
-		return new ResponseEntity<>("Error al crear el post.", HttpStatus.OK);
+		return new ResponseEntity<>("Error al crear el post.", HttpStatus.OK);// Si hay algun error se emite msj de error.
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> bajaPost(@PathVariable("id") Long id){
-		if(postService.bajaPost(id)) {
+	@DeleteMapping("/")
+	public ResponseEntity<?> bajaPost(@RequestBody PostTdo postTdo){
+		if(postService.bajaPost(postTdo.getPost_id())) {
 			return new ResponseEntity<>("Post eliminado con exito.",HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Error al eliminar el post.", HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<?>actualizarPost(@PathVariable("id") Long id, @RequestBody Post post){
-		if(postService.actualizarPost(id, post) != null) {
+	@PutMapping("/")
+	public ResponseEntity<?>actualizarPost(@RequestBody PostTdo postTdo){
+		if(postService.actualizarPost(postTdo.getPost_id(), postTdo.getPost()) != null) {
 			return new ResponseEntity<>("Post actualizado con exito.", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Error al actualizar el post.", HttpStatus.OK);		
@@ -75,10 +78,6 @@ public class PostController {
 	@GetMapping("/{titulo}")
 	public ResponseEntity<?> postPorTitulo(@PathVariable String titulo){
 		List<Post> posts = postService.buscarPorTitulo(titulo);
-		
-		for (Post post : posts) {
-			log.info("POST : "+post.toString());
-		}
 		
 		if(posts.size()>0) {
 			log.info("tamaño : "+posts.size());

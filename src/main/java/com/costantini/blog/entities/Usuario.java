@@ -2,7 +2,6 @@ package com.costantini.blog.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,17 +27,45 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String nombre;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String apellido;
-	@Column(unique=true)
+	
+	@Column(unique=true, nullable = false)
+	@NotEmpty
+	@Email
 	private String email;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String password;
+	
 	@Column(name="fehca_alta")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Timestamp fechaAlta;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String ciudad;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String provincia;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String pais;
 	
 	@OneToMany(
@@ -49,25 +80,7 @@ public class Usuario implements Serializable{
 	
 	
 	
-	public Usuario(Long id, String nombre, String apellido, String email, String password, Timestamp fechaAlta,
-			String ciudad, String provincia, String pais, List<Post> posts, List<Comentario> comentarios) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.password = password;
-		this.fechaAlta = fechaAlta;
-		this.ciudad = ciudad;
-		this.provincia = provincia;
-		this.pais = pais;
-		this.posts = posts;
-		this.comentarios = comentarios;
-	}
-	public Usuario() {
-		this.posts=new ArrayList<Post>();
-		this.comentarios=new ArrayList<Comentario>();
-	}
+	
 	public List<Post> getPosts() {
 		return posts;
 	}

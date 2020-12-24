@@ -25,9 +25,7 @@ public class UsuarioServiceImp implements IUsuarioService{
 	@Override
 	public void bajaUsuario(Long idUsuario) {
 		// TODO Auto-generated method stub
-		if(usuarioRepository.findById(idUsuario)!=null) {
 			usuarioRepository.deleteById(idUsuario);
-		}
 	}
 
 	@Override

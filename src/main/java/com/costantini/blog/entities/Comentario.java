@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,19 +24,23 @@ public class Comentario implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(name="fecha_alta")
 	private Timestamp fechaAlta;
+	
 	@Column(length=200)
+	@NotEmpty
+	@NotBlank
 	private String comentario;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="id_usuario", nullable = false)
 	private Usuario usuario;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="id_post")
+	@JoinColumn(name="id_post", nullable = false)
 	private Post post;
 	
 	@PrePersist

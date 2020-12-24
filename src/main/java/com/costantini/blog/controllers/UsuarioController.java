@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.costantini.blog.entities.Usuario;
+import com.costantini.blog.entities.tda.UserDTO;
 import com.costantini.blog.services.UsuarioServiceImp;
 
 @RestController
@@ -29,37 +31,26 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioServiceImp usuarioService;
 	
-	@PostMapping(value="/", consumes={"application/json"})
-	public ResponseEntity<?> altaUsuario(@RequestBody Usuario usuario){
-		
-		try {
-			usuarioService.altaUsuario(usuario);
-			return new ResponseEntity<>("Usuario creado con exito.",HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error al crear usuario.",HttpStatus.BAD_REQUEST);
-		}
-		
+	@PostMapping(value="/")
+	public ResponseEntity<?> altaUsuario(@Valid @RequestBody Usuario usuario){
+	
+		usuarioService.altaUsuario(usuario);
+		return new ResponseEntity<>("Usuario creado con exito.",HttpStatus.CREATED);
+
 	}
 	
-	@PutMapping("/{idUsuario}")
-	public ResponseEntity<?> actualizarUsuario(@PathVariable Long idUsuario, @RequestBody Usuario usuario){
-		try {
-			usuarioService.actualizarUsuario(idUsuario, usuario);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error al actualizar el cliente", HttpStatus.BAD_REQUEST);
-		}
+	@PutMapping("/")
+	public ResponseEntity<?> actualizarUsuario(@Valid @RequestBody UserDTO usuarioDTO) throws Exception{
+		
+			usuarioService.actualizarUsuario(usuarioDTO.getId(),usuarioDTO.getUsuario());
 		
 		return new ResponseEntity<>("Usuario actualizado con exito.", HttpStatus.OK);		
 	}
 	
-	@DeleteMapping("/{idUsuario}")
-	public ResponseEntity<?> eliminarUsuario(@PathVariable Long idUsuario){
-		try {
-			usuarioService.bajaUsuario(idUsuario);
-		}catch (Exception e) {
-			// TODO: handle exception
-			return new ResponseEntity<>("Id de usuario inexistente.", HttpStatus.BAD_REQUEST);
-		}
+	@DeleteMapping("/")
+	public ResponseEntity<?> eliminarUsuario(@RequestBody UserDTO userDTO){
+		
+		usuarioService.bajaUsuario(userDTO.getId());
 		return new ResponseEntity<>("Usuario eliminado con exito.", HttpStatus.OK);
 	}
 	
@@ -76,7 +67,7 @@ public class UsuarioController {
 		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 	
-	@GetMapping("/fecha/{fecha}")
+	@GetMapping("/fecha_{fecha}")
 	public ResponseEntity<?> usuariosPorFecha(@PathVariable String fecha){
 		Timestamp ahora= new Timestamp(new Date().getTime());
 		Timestamp fechaParam= Timestamp.valueOf(fecha+" 00:00:00.000000000");
@@ -86,6 +77,12 @@ public class UsuarioController {
 		}
 		return new ResponseEntity<>("No se encontro usuarios.",HttpStatus.OK);
 	}
+	
+	@GetMapping("/resistencia")
+	public ResponseEntity<?> usuariosDeResistencia(){
+		return new ResponseEntity<>(usuarioService.usuariosDeResistencia(), HttpStatus.OK);
+	}
+	
 	
 	private Function<Usuario, Usuario> elimarClave = usuario -> {
 		usuario.setPassword("");

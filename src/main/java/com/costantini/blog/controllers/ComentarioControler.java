@@ -39,22 +39,20 @@ public class ComentarioControler {
 	
 	@PostMapping("/")
 	public ResponseEntity<?> altaComentario(@RequestBody ComentarioTdo comentarioTda){
-		Long autor_id=comentarioTda.getAutor();
-		Long post_id= comentarioTda.getPost();
-		Comentario comentario= new Comentario();
+		Long autor_id=comentarioTda.getAutor();// obtengo el id del autor del TDO.
+		Long post_id= comentarioTda.getPost();//obtengo el id del post del TDO.
+		Comentario comentario= new Comentario(); //Creo objeto comentario vacio.
 		
-		comentario.setComentario(comentarioTda.getComentarioString());
+		comentario.setComentario(comentarioTda.getComentarioString());//Asigno el string del comentario 
 		Usuario autor= usuarioService.getUsuario(autor_id);
 
 		Post post= postService.obtenerPost(post_id);
 		comentario.setUsuario(autor);
 		comentario.setPost(post);
-		if(comentario.getComentario() != null) {
-			if(comentarioService.altaComentario(comentario) !=null) {
-				return new ResponseEntity<>("Comentario guardado con exito.", HttpStatus.CREATED);
-			}
-		}
-		return new ResponseEntity<>("Error al guardar el comenxtario.", HttpStatus.OK);
+		comentarioService.altaComentario(comentario);
+		return new ResponseEntity<>("Comentario guardado con exito.", HttpStatus.CREATED);
+			
+		
 	}
 	
 	@PutMapping("/")
@@ -62,9 +60,9 @@ public class ComentarioControler {
 		Long comentarioId = comentarioTda.getComentario();
 		Comentario comentario = comentarioService.obtenerComentario(comentarioId);
 		
-		if(comentario != null) {
+		if(comentarioTda.getComentarioString() != "" && comentario != null) {
 			comentario.setComentario(comentarioTda.getComentarioString());
-			if(comentarioService.actualizarComentario(comentarioId, comentario) != null) {
+			if( comentarioService.actualizarComentario(comentarioId, comentario) != null) {
 				return new ResponseEntity<>("Comentario actualizado con exito.",HttpStatus.OK);
 			}
 		}
@@ -81,7 +79,7 @@ public class ComentarioControler {
 		return new ResponseEntity<>("Error al eliminar comentario.",HttpStatus.OK);
 	}
 	
-	@GetMapping("/post_{id}/cantidad_{cantidad}")
+	@GetMapping("/post_{id}-cantidad_{cantidad}")
 	public ResponseEntity<?> obtenerComentarios(@PathVariable Long id, @PathVariable Integer cantidad){
 				
 

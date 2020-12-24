@@ -17,8 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 @Entity
 public class Post implements Serializable{
@@ -26,17 +30,32 @@ public class Post implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="post_id")
 	private Long id;
+
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String titulo;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String descripcion;
+	
+	@Column(nullable = false)
+	@NotBlank
+	@NotEmpty
 	private String contenido;
-	@Column(name="fecha_alta")
+	
+	@Column(name="fecha_alta", nullable = false)
 	private Timestamp fechaAlta;
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name="id_usuario", nullable = false)
 	private Usuario autor;
 	
+	@Column(nullable = false)
+	@NotNull
 	private boolean publicado;
 		
 	@PrePersist
@@ -50,7 +69,6 @@ public class Post implements Serializable{
 			targetEntity = com.costantini.blog.entities.Comentario.class,
 			mappedBy="post",fetch=FetchType.LAZY, cascade=CascadeType.ALL
 			)
-	//@JsonManagedReference
 	private List<Comentario> comentarios;
 	
 	
