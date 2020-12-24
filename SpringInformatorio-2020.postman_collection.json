@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "6e763ddd-3655-494b-bdb2-2ac4734c168c",
+		"name": "SpringInformatorio-2020",
+		"description": "Colección de peticiones Http para Api Resten en springboot 2. Para el modulo de backend del Informatorio-2020",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Post - Crear Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario_id\":1,\r\n    \"post\": {\r\n        \"contenido\":\"lorem insup insup lorem lorem lorem\",\r\n        \"descripcion\":\"Que viva yo porque soy genial\",\r\n        \"titulo\":\"Spring es lo maaaas\",\r\n        \"publicado\":\"false\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								""
+							]
+						},
+						"description": "Petición Http para crear un post."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -   Modificar Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\":3,\r\n    \"post\":{\r\n        \"titulo\":\"vamos spring!!\"\r\n    }   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								""
+							]
+						},
+						"description": "Petición http para modificar un post."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete - Eliminar Post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								""
+							]
+						},
+						"description": "Petición http para eliminar un post."
+					},
+					"response": []
+				},
+				{
+					"name": "Get - Todos los post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/todos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"todos"
+							]
+						},
+						"description": "Petición para traer todos los posts."
+					},
+					"response": []
+				},
+				{
+					"name": "Get - Traer posts por titulo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/papa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"papa"
+							]
+						},
+						"description": "Petición http que trae todos los posts segun el titulo."
+					},
+					"response": []
+				},
+				{
+					"name": "Get - Traer los post no publicados.",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/post/no_publicados",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"no_publicados"
+							]
+						},
+						"description": "Petición Http qque trae los posts no publicados."
+					},
+					"response": []
+				}
+			],
+			"description": "Carpeta con peticiones Http para PostController"
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "GET-todos los usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"todos"
+							]
+						},
+						"description": "Petición GET que obtiene todos los usuarios."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT- Modificar usuario existente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rosten2015@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"1"
+							]
+						},
+						"description": "Petición Http PUT para modificar datos de un usuario existente."
+					},
+					"response": []
+				},
+				{
+					"name": "Post-Crear usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Marcos\",\r\n    \"apellido\":\"Costantini\",\r\n    \"email\":\"rosten2016@gmail.com\",\r\n    \"password\":\"contraseña\",\r\n    \"ciudad\":\"Resistencia\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								""
+							]
+						},
+						"description": "Metodo POST para crear 1 usuario."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete- Eliminar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/usuario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								""
+							]
+						},
+						"description": "Petición Http delete para eliminar 1 usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "GET- Usuarios por fecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/usuario/fecha_2020-12-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"fecha_2020-12-1"
+							]
+						},
+						"description": "Petición Https GET que traer a todos los usuarios segun una fecha dada."
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Obtener todos los usuarios de resistencia.",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/usuario/resistencia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"usuario",
+								"resistencia"
+							]
+						},
+						"description": "Petición que trae todos los usuarios de resistencia."
+					},
+					"response": []
+				}
+			],
+			"description": "Peticiones Http para el UsuarioController."
+		},
+		{
+			"name": "Comentario",
+			"item": [
+				{
+					"name": "Post - Crear comentario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"autor\":1,\r\n    \"post\":1,\r\n    \"comentario\":null,\r\n    \"comentarioString\":\"Toda la razon hermano, viva spring, viva!!\",\r\n    \"cantidad\":null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/comentario/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comentario",
+								""
+							]
+						},
+						"description": "Petición Http para crear un comentario."
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Traer ultimos comentarios por cantidad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/comentario/post_2-cantidad_3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comentario",
+								"post_2-cantidad_3"
+							]
+						},
+						"description": "Petición Http para obtener los ultimos comentarios, segun la cantidad solicitada."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT- Modificar comentario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"autor\":1,\r\n\t\"post\":3,\r\n\t\"comentario\":2,\r\n\t\"comentarioString\":\"Modifique mi comentario\",\r\n\t\"cantidad\":null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/comentario/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comentario",
+								""
+							]
+						},
+						"description": "Petición Http para modificar/actualizar el comentario de 1 post."
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE- Eliminar un comentario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comentario\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/comentario/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"comentario",
+								""
+							]
+						},
+						"description": "Petición Http para eliminar un comentario."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
